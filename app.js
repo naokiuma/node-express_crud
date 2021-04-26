@@ -52,17 +52,42 @@ app.post('/create', (req, res) => {
 
 //編集画面
 //https://expressjs.com/ja/guide/routing.html のルートパラメータ参照
-app.get('/edit/:id',(req,res) => {
+app.get('/edit/:id', (req, res) => {
+  console.log(req.params);//ここのparams にurlのパラメータが入る
 
     connection.query(
       'SELECT * FROM items WHERE id = ?',
-      [req,]
+      [req.params.id],
+      (error,results) => {        
+        res.render('edit.ejs', {item: results[0]});//itemというキーでviewにデータベースの中身を渡せる
+      }
 
     )
 })
 
+//更新
+app.post('/update/:id',(req,res) => {
+  connection.query(
+   'UPDATE items set title = ?,text = ? WHERE id = ?',
+   //formからくるデータはbody
+   [req.body.itemTitle,req.body.itemText,req.params.id],
+   (error,results) => {
+     res.redirect('/')
+   }
+    
+  )
+});
+
+//削除
+app.post('/delete/:id',(req,res) =>  {
+  connection.query(
+    'DELETE FROM items WHERE id = ?',
+    [req.params.id],//フォームで値を送っているわけではなく、リンクしているためparams
+    (error,results) => {
+      res.redirect('/')
+    }
+  )
+})
 
 
-
-
-app.listen(3000);//listenできどう。port3000で動作する
+app.listen(3000);//listenで起動。port3000で動作する

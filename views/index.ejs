@@ -1,8 +1,16 @@
 <% items.forEach((item) => { %>
     <li>
+        <%= item.id %>
      <div>
       <span><%= item.title %></span>
       <span><%= item.text %></span>
      </div>
     </li>
+    <a href="/edit/<%= item.id %>">編集</a>
+    <form action="/delete/<%= item.id %>" method="post">
+        <input type="submit" value="削除">
+      </form>
+
+    
+
    <% }) %>
