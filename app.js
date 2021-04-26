@@ -48,7 +48,18 @@ app.post('/create', (req, res) => {
         (error, results) => {
         res.redirect('/');
         });
-    });
+});
+
+//編集画面
+//https://expressjs.com/ja/guide/routing.html のルートパラメータ参照
+app.get('/edit/:id',(req,res) => {
+
+    connection.query(
+      'SELECT * FROM items WHERE id = ?',
+      [req,]
+
+    )
+})
 
 
 
