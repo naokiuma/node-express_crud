@@ -3,8 +3,9 @@ const mysql = require('mysql');
 const connection = mysql.createConnection({
     host:'localhost',
     user:'root',
-    password:'',
-    database:'express_db'
+    password:'root',
+    database:'express_db',
+    port:'8889'
 });
 
 //テーブル作成
